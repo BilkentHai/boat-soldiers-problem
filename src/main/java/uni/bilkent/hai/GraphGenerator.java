@@ -1,4 +1,7 @@
 package uni.bilkent.hai;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -67,7 +70,28 @@ public class GraphGenerator {
         nodes += "]";
         edges = edges.substring(0, edges.length()-1);
         edges += "]";
+        JSONFile();
+
     }
+
+    public void JSONFile(){
+            try {
+                File file = new File("edges.json");
+                File file2 = new File("nodes.json");
+                file.createNewFile();
+                FileWriter fileWriter = new FileWriter(file);
+                FileWriter fileWriter2 = new FileWriter(file2);
+                fileWriter.write( edges);
+                fileWriter2.write( nodes);
+                fileWriter.flush();
+                fileWriter.close();
+                fileWriter2.flush();
+                fileWriter2.close();
+            } catch ( IOException e){
+                e.printStackTrace();;
+            }
+    }
+
     public static void main(String[] args) {
         GraphGenerator g = new GraphGenerator();
         System.out.println(g.nodes);
