@@ -26,31 +26,31 @@ public class GraphGenerator {
 
             if(curState.getStart().getNumberOfBoys() != 0)
             {
-                nodes += curState.getStart().getNumberOfBoys() + " Boy";
+                nodes += curState.getStart().getNumberOfBoys() + " Boy ";
             }
 
             if(curState.getStart().getNumberOfSoldiers() != 0)
             {
-                nodes += "," + curState.getStart().getNumberOfSoldiers() + " Soldier";
+                nodes += curState.getStart().getNumberOfSoldiers() + " Soldier";
             }
 
             if( curState.getBoat().getRiverSide() ==RiverSide.START){
-                nodes += ", Boat";
+                nodes += " Boat";
             }
             nodes += ") (";
 
             if(curState.getGoal().getNumberOfBoys() != 0)
             {
-                nodes += curState.getGoal().getNumberOfBoys() + " Boy";
+                nodes += curState.getGoal().getNumberOfBoys() + " Boy ";
             }
 
             if(curState.getGoal().getNumberOfSoldiers() != 0)
             {
-                nodes += "," + curState.getGoal().getNumberOfSoldiers() + " Soldier";
+                nodes += curState.getGoal().getNumberOfSoldiers() + " Soldier";
             }
 
             if( curState.getBoat().getRiverSide() ==RiverSide.GOAL){
-                nodes += ", Boat";
+                nodes += " Boat";
             }
 
             nodes += "))\" } }";
@@ -62,10 +62,10 @@ public class GraphGenerator {
                 edges += "\"data\": { \"source\": \"" + curState.getid() + "\",\"target\": "
                         + neighborstates.get(j).getid() + "\" } },";
             }
-            edges = edges.substring(0, edges.length()-1);
 
         }
         nodes += "]";
+        edges = edges.substring(0, edges.length()-1);
         edges += "]";
     }
     public static void main(String[] args) {
