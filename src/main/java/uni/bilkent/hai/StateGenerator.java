@@ -11,7 +11,7 @@ public class StateGenerator {
     private int numberOfBoys = 2;
     private int numberOfSoldiers = 3;
 
-    private List<State> states = new ArrayList<>();
+    private List<State> states = new ArrayList<State>();
 
 
     public StateGenerator()
@@ -56,7 +56,7 @@ public class StateGenerator {
 
     private void removeNeigborlessStates()
     {
-        List<State> neigborless = new ArrayList<>();
+        List<State> neigborless = new ArrayList<State>();
 
         for ( State s : states)
         {
