@@ -49,7 +49,7 @@ public class State {
                 + "Start soldiers: " + start.getSoldiers().size() + "\n"
                 + "Goal boys: " + goal.getBoys().size() + "\n"
                 + "Goal soldiers: " + goal.getSoldiers().size() + "\n"
-                + "Side of boat: " + boat.getRiverSide();
+                + "Side of boat: " + boat.getRiverSide() + "\n";
     }
 
     public Boat getBoat() {

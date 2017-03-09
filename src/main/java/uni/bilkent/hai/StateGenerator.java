@@ -22,7 +22,7 @@ public class StateGenerator {
                     states.add(new State(numberOfBoys - i, numberOfSoldiers - j, i, j, boatSide));
 
         configureLinks();
-        removeNeigborlessStates();
+     //   removeNeigborlessStates();
     }
 
     private void configureLinks()
@@ -67,6 +67,8 @@ public class StateGenerator {
         for ( State s : neigborless)
             states.remove( s);
     }
+
+    public State getStartState() { return states.get(0); }
 
     public int getNumberOfBoys() {
         return numberOfBoys;
