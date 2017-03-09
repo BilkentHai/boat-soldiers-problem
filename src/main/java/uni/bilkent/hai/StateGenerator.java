@@ -13,14 +13,13 @@ public class StateGenerator {
 
     private List<State> states = new ArrayList<State>();
 
+
     public StateGenerator() {
 
         for (int i = 0; i <= numberOfBoys; i++)
             for (int j = 0; j <= numberOfSoldiers; j++)
                 for (RiverSide boatSide : RiverSide.values())
                     states.add(new State(numberOfBoys - i, numberOfSoldiers - j, i, j, boatSide));
-
-
 
 
         for (int i = 0; i < states.size(); i++) {
@@ -54,6 +53,29 @@ public class StateGenerator {
 
     }
 
+    public int getNumberOfBoys() {
+        return numberOfBoys;
+    }
+
+    public void setNumberOfBoys(int numberOfBoys) {
+        this.numberOfBoys = numberOfBoys;
+    }
+
+    public int getNumberOfSoldiers() {
+        return numberOfSoldiers;
+    }
+
+    public void setNumberOfSoldiers(int numberOfSoldiers) {
+        this.numberOfSoldiers = numberOfSoldiers;
+    }
+
+    public List<State> getStates() {
+        return states;
+    }
+
+    public void setStates(List<State> states) {
+        this.states = states;
+    }
 
     public static void main(String[] args) {
         new StateGenerator();
