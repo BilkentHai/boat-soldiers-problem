@@ -1,43 +1,44 @@
 package uni.bilkent.hai;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by eliztekcan on 9.03.2017.
  */
-public class StateTree{
+public class StateTree
+{
     private  Node root;
+
+    public StateTree( State s){
+        root = new Node( s);
+    }
 
     public Node getRoot() {
         return root;
     }
 
-    public void setRoot(Node root) {
+    public void setRoot( Node root) {
         this.root = root;
     }
 
-    public StateTree(State s){
-        root = new Node();
-    }
+    public static class Node {
 
-    public static class Node{
-        private Node parent;
         private List<Node> children;
+        private State state;
 
-        public Node getParent() {
-            return parent;
+        public Node( State s)
+        {
+            state = s;
+            children = new ArrayList<Node>();
         }
+
+        public State getState() { return state; }
 
         public List<Node> getChildren() {
             return children;
         }
 
-        public void setChildren(List<Node> children) {
-            this.children = children;
-        }
-
-        public void setParent(Node parent) {
-            this.parent = parent;
-        }
+        public void addChild( Node child) { children.add( child); };
     }
 }

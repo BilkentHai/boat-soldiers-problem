@@ -47,8 +47,8 @@ public class SideOfRiver {
     @Override
     public String toString() {
         return "SideOfRiver{" +
-                "soldiers=" + soldiers +
-                ", boys=" + boys +
+                "soldiers = " + soldiers +
+                ", boys = " + boys +
                 '}';
     }
 }

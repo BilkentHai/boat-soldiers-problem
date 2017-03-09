@@ -68,6 +68,8 @@ public class StateGenerator {
             states.remove( s);
     }
 
+    public State getStartState() { return states.get(0); }
+
     public int getNumberOfBoys() {
         return numberOfBoys;
     }
