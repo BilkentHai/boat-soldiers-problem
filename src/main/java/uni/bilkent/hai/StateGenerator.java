@@ -11,19 +11,26 @@ public class StateGenerator {
     private int numberOfBoys = 2;
     private int numberOfSoldiers = 3;
 
-    private List<State> states = new ArrayList<State>();
+    private List<State> states = new ArrayList<>();
 
 
-    public StateGenerator() {
-
+    public StateGenerator()
+    {
         for (int i = 0; i <= numberOfBoys; i++)
             for (int j = 0; j <= numberOfSoldiers; j++)
                 for (RiverSide boatSide : RiverSide.values())
                     states.add(new State(numberOfBoys - i, numberOfSoldiers - j, i, j, boatSide));
 
+        configureLinks();
+        removeNeigborlessStates();
+    }
 
-        for (int i = 0; i < states.size(); i++) {
-            for (int j = i + 1; j < states.size(); j++) {
+    private void configureLinks()
+    {
+        for (int i = 0; i < states.size(); i++)
+        {
+            for (int j = i + 1; j < states.size(); j++)
+            {
                 State s1 = states.get(i);
                 State s2 = states.get(j);
 
@@ -38,19 +45,27 @@ public class StateGenerator {
                 else if (s2.getBoat().getRiverSide() == RiverSide.START && (s2.getStart().getNumberOfSoldiers() - s1.getStart().getNumberOfSoldiers() < 0
                         || s2.getStart().getNumberOfBoys() - s1.getStart().getNumberOfBoys() < 0))
                     continue;
-                else if ((boys <= 2 && boys >= 1 && soldiers == 0) || (boys == 0 && soldiers == 1)){
+                else if ((boys <= 2 && boys >= 1 && soldiers == 0) || (boys == 0 && soldiers == 1))
+                {
                     s1.addNeighborState(s2);
                     s2.addNeighborState(s1);
-                    System.out.println("State " + i);
-                    System.out.println(s1);
-                    System.out.println("State " + j);
-                    System.out.println(s2);
-                    System.out.println("-----------");
                 }
             }
         }
+    }
 
+    private void removeNeigborlessStates()
+    {
+        List<State> neigborless = new ArrayList<>();
 
+        for ( State s : states)
+        {
+            if ( s.getNeighborStates().isEmpty())
+                neigborless.add( s);
+        }
+
+        for ( State s : neigborless)
+            states.remove( s);
     }
 
     public int getNumberOfBoys() {
@@ -77,8 +92,31 @@ public class StateGenerator {
         this.states = states;
     }
 
-    public static void main(String[] args) {
-        new StateGenerator();
+    public String toString()
+    {
+        String result = "";
+
+        for ( State s : states)
+        {
+            result += ( s.toString() + "\n");
+            result += "NEIGHBOURS: \n";
+
+            for ( State neighbor : s.getNeighborStates())
+            {
+                result += "---";
+                result += (neighbor.getid() + "\n");
+            }
+
+            result += "*************\n";
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args)
+    {
+        StateGenerator sg = new StateGenerator();
+        System.out.println( sg);
     }
 
 }
