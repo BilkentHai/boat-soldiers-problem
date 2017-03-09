@@ -17,9 +17,13 @@ public class Graph extends Parent {
     private WebEngine webEngine;
     private boolean ready;
 
-
     //####################################################################
 
+    /**
+     * Constructor
+     * Initiation of following methods
+     * initMap() iniCommunication() getChildren().add(webView)
+     */
     public Graph() {
         initMap();
         initCommunication();
@@ -27,7 +31,9 @@ public class Graph extends Parent {
         webView.setPrefSize(screen.getBounds().getWidth(),screen.getBounds().getHeight() - 100);
         getChildren().add(webView); // Will be change as JavaFx Elements change
 
+      //  invokeJS("$('body').html(\"qwewqeqw\")s");
     }
+
 
     /**
      * Initialize the Map
@@ -39,15 +45,18 @@ public class Graph extends Parent {
         //####################### Initialize Web View #######################
         webView = new WebView();
         webEngine = webView.getEngine();
+        webEngine.setJavaScriptEnabled(true);
         webEngine.load(getClass().getResource("web/index.html").toExternalForm());
         webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>()
         {
+            @Override
             public void changed(final ObservableValue<? extends Worker.State> observableValue,
                                 final Worker.State oldState,
                                 final Worker.State newState)
             {
                 if (newState == Worker.State.SUCCEEDED)
                 {
+                    System.out.println("readyy");
                     ready = true;
                 }
             }
@@ -64,6 +73,7 @@ public class Graph extends Parent {
     private void initCommunication() {
         webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>()
         {
+            @Override
             public void changed(final ObservableValue<? extends Worker.State> observableValue,
                                 final Worker.State oldState,
                                 final Worker.State newState)
@@ -91,6 +101,7 @@ public class Graph extends Parent {
             // Check again, If everything is ok, eval the script
             webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>()
             {
+                @Override
                 public void changed(final ObservableValue<? extends Worker.State> observableValue,
                                     final Worker.State oldState,
                                     final Worker.State newState)
@@ -103,7 +114,5 @@ public class Graph extends Parent {
             });
         }
     }
-
-
 
 }
