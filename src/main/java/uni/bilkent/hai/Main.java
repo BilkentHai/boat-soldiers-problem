@@ -1,11 +1,7 @@
-package uni.bilkent.hai.graph.GUI;
+package uni.bilkent.hai;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import uni.bilkent.hai.graph.Graph;
 

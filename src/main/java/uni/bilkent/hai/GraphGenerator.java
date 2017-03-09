@@ -18,13 +18,14 @@ public class GraphGenerator {
     {
         stateGenerator = new StateGenerator();
         List<State> neighborstates;
-        nodes = "[ {";
-        edges = "[ {";
+        nodes = "[ ";
+        edges = "[ ";
         states = stateGenerator.getStates();
+        // TODO: give classes property to goal & start nodes
         for(int i = 0; i < states.size(); i++){
             State curState = states.get(i);
             neighborstates = curState.getNeighborStates();
-            nodes += "\"data\": { \"id\": \"" + curState.getid() + "\",";
+            nodes += "{ \"data\": { \"id\": \"" + curState.getid() + "\",";
             nodes += "\"content\": \"((" ;
 
             if(curState.getStart().getNumberOfBoys() != 0)
@@ -62,7 +63,7 @@ public class GraphGenerator {
                 nodes += ",";
             }
             for(int j = 0; j < neighborstates.size(); j++) {
-                edges += "\"data\": { \"source\": \"" + curState.getid() + "\",\"target\": "
+                edges += "{ \"data\": { \"source\": \"" + curState.getid() + "\",\"target\": \""
                         + neighborstates.get(j).getid() + "\" } },";
             }
 
@@ -76,8 +77,8 @@ public class GraphGenerator {
 
     public void JSONFile(){
             try {
-                File file = new File("edges.json");
-                File file2 = new File("nodes.json");
+                File file = new File("web/edges.json");
+                File file2 = new File("web/nodes.json");
                 file.createNewFile();
                 FileWriter fileWriter = new FileWriter(file);
                 FileWriter fileWriter2 = new FileWriter(file2);
