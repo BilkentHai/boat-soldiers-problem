@@ -1,22 +1,29 @@
 package uni.bilkent.hai;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by deniz on 09/03/17.
  */
 public class GraphTraverser
 {
+    StateGenerator sg;
+
+    public StateGenerator getSg() {
+        return sg;
+    }
+
+    public void setSg(StateGenerator sg) {
+        this.sg = sg;
+    }
+
     public GraphTraverser()
     {
-        StateGenerator sg = new StateGenerator();
+        sg = new StateGenerator();
         State start = sg.getStartState();
-        StateTree tree = new StateTree( start);
 
         Stack<State> path = new Stack<State>();
-        List<State> visited = new ArrayList<State>();
+        Set<State> visited = new HashSet<State>();
 
         visited.add( start);
         path.add( start);
@@ -24,7 +31,7 @@ public class GraphTraverser
         while ( !path.isEmpty())
         {
             State cur = path.peek();
-            System.out.println( cur);
+            //System.out.println( cur);
             List<State> neighborStates = cur.getNeighborStates();
             boolean deadEnd = true;
 
@@ -33,6 +40,7 @@ public class GraphTraverser
                 if ( !visited.contains( s))
                 {
                     path.push(s);
+                    s.getNeighborStates().remove( cur);
                     visited.add( s);
                     deadEnd = false;
                     break;
@@ -43,7 +51,7 @@ public class GraphTraverser
                 path.pop();
         }
 
-        System.out.println( visited.size());
+        //System.out.println( visited.size());
     }
 
     public static void main( String[] args)

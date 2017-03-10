@@ -13,6 +13,8 @@ public class StateGenerator {
 
     private List<State> states = new ArrayList<State>();
 
+    int count = 0;
+
 
     public StateGenerator()
     {
@@ -49,6 +51,7 @@ public class StateGenerator {
                 {
                     s1.addNeighborState(s2);
                     s2.addNeighborState(s1);
+                    count++;
                 }
             }
         }
@@ -106,7 +109,7 @@ public class StateGenerator {
             for ( State neighbor : s.getNeighborStates())
             {
                 result += "---";
-                result += (neighbor.getid() + "\n");
+                result += (neighbor + "\n");
             }
 
             result += "*************\n";
@@ -119,6 +122,7 @@ public class StateGenerator {
     {
         StateGenerator sg = new StateGenerator();
         System.out.println( sg);
+        System.out.println(sg.count);
     }
 
 }
