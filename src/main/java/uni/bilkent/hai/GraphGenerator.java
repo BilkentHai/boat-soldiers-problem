@@ -9,18 +9,22 @@ import java.util.List;
  */
 public class GraphGenerator {
 
-    StateGenerator stateGenerator;
+    GraphTraverser trav;
     String nodes, edges;
+    Solver solver;
+    String solution;
 
     private List<State> states = new ArrayList<State>();
 
     public GraphGenerator()
     {
-        stateGenerator = new StateGenerator();
+
+        solver = new Solver();
+        trav = new GraphTraverser();
+        states = trav.getStateGenerator().getStates();
         List<State> neighborstates;
         nodes = "[ ";
         edges = "[ ";
-        states = stateGenerator.getStates();
         // TODO: give classes property to goal & start nodes
         for(int i = 0; i < states.size(); i++){
             State curState = states.get(i);
@@ -71,6 +75,11 @@ public class GraphGenerator {
         nodes += "]";
         edges = edges.substring(0, edges.length()-1);
         edges += "]";
+        solution = "[";
+        solution += solver.printSolution(solver.BFS( trav.getStateGenerator().getStates().get(0)));
+        solution = solution.substring(0,solution.length()-1);
+        solution += "]";
+        System.out.println(solution);
         JSONFile();
 
     }
@@ -79,9 +88,15 @@ public class GraphGenerator {
             try {
                 File file = new File("web/edges.json");
                 File file2 = new File("web/nodes.json");
+                File file3 = new File("web/solution.json");
                 file.createNewFile();
+                file3.createNewFile();
                 FileWriter fileWriter = new FileWriter(file);
                 FileWriter fileWriter2 = new FileWriter(file2);
+                FileWriter fileWriter3 = new FileWriter(file3);
+                fileWriter3.write(solution);
+                fileWriter3.flush();
+                fileWriter3.close();
                 fileWriter.write( edges);
                 fileWriter2.write( nodes);
                 fileWriter.flush();
@@ -95,8 +110,6 @@ public class GraphGenerator {
 
     public static void main(String[] args) {
         GraphGenerator g = new GraphGenerator();
-        System.out.println(g.nodes);
-        System.out.println(g.edges);
     }
 
 }

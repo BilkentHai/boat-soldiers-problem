@@ -19,9 +19,9 @@ public class Solver {
         visited.add(start);
         while(!q.isEmpty() ){
             State curState = (State) q.remove();
+            System.out.println(curState);
             if( isSolution(curState)){
                 visited.add(curState);
-                //System.out.println(visited);
                 return curState;
             }
             else{
@@ -29,14 +29,13 @@ public class Solver {
                 for (State s: neighbors) {
 
                     if (!map.containsKey(s)) {
-                        System.out.println( curState + " -> " + s + "\n");
                         map.put(s, curState);
                     }
                 }
                 q.addAll(curState.getNeighborStates());
             }
             visited.add(curState);
-        }	//predecessor state of the original state is equal to itself
+        }
         return null;
     }
 
@@ -59,25 +58,27 @@ public class Solver {
         return false;
     }
 
-    private void printSolution(State solution, State start)
+    public String printSolution(State solution)
     {
+        String path = "";
         State cur = solution;
         while (map.containsKey(cur)) {
-            System.out.println(map.get(cur));
+            path = "\"" + cur.getid() + "\", " + path;
             State temp = map.get(cur);
             cur = map.get(cur);
         }
-
+        return path;
     }
+
 
     public static void main(String[] args) {
         Solver solver = new Solver();
         StateGenerator g;
         GraphTraverser trav = new GraphTraverser();
-        g = trav.getSg();
-        //System.out.println(solver.BFS(trav.getSg().getStates().get(0)));
+        g = trav.getStateGenerator();
+        //System.out.println(solver.BFS(trav.getStateGenerator().getStates().get(0)));
 
-        solver.printSolution(solver.BFS(g.getStates().get(0)), g.getStates().get(0));
+        solver.printSolution(solver.BFS(g.getStates().get(0)));
         System.out.println( solver.map.size());
     }
 

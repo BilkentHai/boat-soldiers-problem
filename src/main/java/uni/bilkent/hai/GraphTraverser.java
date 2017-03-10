@@ -9,7 +9,7 @@ public class GraphTraverser
 {
     StateGenerator sg;
 
-    public StateGenerator getSg() {
+    public StateGenerator getStateGenerator() {
         return sg;
     }
 

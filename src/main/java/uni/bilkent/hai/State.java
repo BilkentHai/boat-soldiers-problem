@@ -45,7 +45,11 @@ public class State {
 
     @Override
     public String toString() {
-        return "B: " + goal.getNumberOfBoys() + ", S: " + goal.getNumberOfSoldiers() + ", b: " + boat.getRiverSide() + "\n";
+        return "Start boys: " + start.getBoys().size() + "\n"
+                + "Start soldiers: " + start.getSoldiers().size() + "\n"
+                + "Goal boys: " + goal.getBoys().size() + "\n"
+                + "Goal soldiers: " + goal.getSoldiers().size() + "\n"
+                + "Side of boat: " + boat.getRiverSide() + "\n";
     }
 
     public Boat getBoat() {
