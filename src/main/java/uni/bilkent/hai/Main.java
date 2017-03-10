@@ -1,30 +1,25 @@
 package uni.bilkent.hai;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import uni.bilkent.hai.graph.Graph;
-
-import java.util.Locale;
-
 /**
- * Created by deniz on 09/03/17.
+ * Created by eliztekcan on 11.03.2017.
+ *
+ * Driver program. Prints search steps to console and calls necessary functions for visualization
  */
-public class Main extends Application
-{
-    public void start(Stage stage) {
+public class Main {
 
-        Locale.setDefault( new Locale( "en", "US"));
+    public static void main( String[] args)
+    {
+        GraphGenerator gg = new GraphGenerator();
 
-        stage.setTitle("aaaa");
+        Solver solver = new Solver();
+        GraphTraverser trav = new GraphTraverser();
 
-        Scene scene = new Scene( new Graph());
+        StateGenerator sg;
+        sg = trav.getStateGenerator();
+        //System.out.println(solver.BFS(trav.getStateGenerator().getStates().get(0)));
 
-        stage.setScene(scene);
-        stage.show();
+        solver.BFS( sg.getStates().get(0));
+        solver.printSearch();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

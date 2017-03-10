@@ -49,14 +49,13 @@ public class Graph extends Parent {
         webEngine.load(getClass().getResource("web/index.html").toExternalForm());
         webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>()
         {
-            @Override
             public void changed(final ObservableValue<? extends Worker.State> observableValue,
                                 final Worker.State oldState,
                                 final Worker.State newState)
             {
                 if (newState == Worker.State.SUCCEEDED)
                 {
-                    System.out.println("readyy");
+                    System.out.println("ready");
                     ready = true;
                 }
             }
@@ -73,7 +72,6 @@ public class Graph extends Parent {
     private void initCommunication() {
         webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>()
         {
-            @Override
             public void changed(final ObservableValue<? extends Worker.State> observableValue,
                                 final Worker.State oldState,
                                 final Worker.State newState)
@@ -101,7 +99,6 @@ public class Graph extends Parent {
             // Check again, If everything is ok, eval the script
             webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>()
             {
-                @Override
                 public void changed(final ObservableValue<? extends Worker.State> observableValue,
                                     final Worker.State oldState,
                                     final Worker.State newState)

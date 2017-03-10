@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Created by mrsfy on 05-Mar-17.
+ * Generates all possible states for the given problem and configures edges between them
  */
 public class StateGenerator {
 

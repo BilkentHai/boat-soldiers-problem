@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Created by deniz on 09/03/17.
+ * Traverses each node in graph. Used to delete edges.
  */
 public class GraphTraverser
 {
@@ -54,8 +55,4 @@ public class GraphTraverser
         //System.out.println( visited.size());
     }
 
-    public static void main( String[] args)
-    {
-        GraphTraverser gt = new GraphTraverser();
-    }
 }

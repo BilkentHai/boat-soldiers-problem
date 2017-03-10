@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by eliztekcan on 9.03.2017.
+ *
+ * Generates JSON form of graph for visualisation
  */
 public class GraphGenerator {
 
@@ -18,7 +20,6 @@ public class GraphGenerator {
 
     public GraphGenerator()
     {
-
         solver = new Solver();
         trav = new GraphTraverser();
         states = trav.getStateGenerator().getStates();
@@ -76,10 +77,10 @@ public class GraphGenerator {
         edges = edges.substring(0, edges.length()-1);
         edges += "]";
         solution = "[";
-        solution += solver.printSolution(solver.BFS( trav.getStateGenerator().getStates().get(0)));
-        solution = solution.substring(0,solution.length()-1);
+        solution += solver.JSONifySolution(solver.BFS( trav.getStateGenerator().getStates().get(0)));
+        solution = solution.substring(0,solution.length()-2);
         solution += "]";
-        System.out.println(solution);
+        //System.out.println(solution);
         JSONFile();
 
     }
@@ -109,7 +110,6 @@ public class GraphGenerator {
     }
 
     public static void main(String[] args) {
-        GraphGenerator g = new GraphGenerator();
     }
 
 }

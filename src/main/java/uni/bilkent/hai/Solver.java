@@ -7,10 +7,12 @@ import java.util.Queue;
 
 /**
  * Created by eliztekcan on 9.03.2017.
+ * Searches for the solution of the problem in the state tree using BFS
  */
 public class Solver {
 
     HashMap<State,State> map = new HashMap<State, State>();
+    String result = "";
 
     public State BFS(State start) {
         Queue<State> q = new LinkedList<State>();
@@ -19,7 +21,7 @@ public class Solver {
         visited.add(start);
         while(!q.isEmpty() ){
             State curState = (State) q.remove();
-            System.out.println(curState);
+            result += ( curState.toString() + "\n");
             if( isSolution(curState)){
                 visited.add(curState);
                 return curState;
@@ -58,7 +60,7 @@ public class Solver {
         return false;
     }
 
-    public String printSolution(State solution)
+    public String JSONifySolution(State solution)
     {
         String path = "";
         State cur = solution;
@@ -70,16 +72,14 @@ public class Solver {
         return path;
     }
 
+    public void printSearch()
+    {
+        System.out.println( result);
+    }
+
 
     public static void main(String[] args) {
-        Solver solver = new Solver();
-        StateGenerator g;
-        GraphTraverser trav = new GraphTraverser();
-        g = trav.getStateGenerator();
-        //System.out.println(solver.BFS(trav.getStateGenerator().getStates().get(0)));
 
-        solver.printSolution(solver.BFS(g.getStates().get(0)));
-        System.out.println( solver.map.size());
     }
 
 }
