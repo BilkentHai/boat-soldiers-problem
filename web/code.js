@@ -3,49 +3,56 @@ $(function(){ // on dom ready
 
     $.getJSON( "nodes.json", function( nodes ) {
         $.getJSON( "edges.json", function( edges ) {
+            $.getJSON( "solution.json", function( solution ) {
+                $.getJSON( "search_path.json", function( searchPath ) {
 
-            console.log(nodes);
-            console.log(edges);
-            var cy = window.cy = cytoscape({
-                container: document.getElementById('cy'),
+                    console.log(nodes);
+                    console.log(edges);
+                    var cy = window.cy = cytoscape({
+                        container: document.getElementById('cy'),
 
-                boxSelectionEnabled: false,
-                autounselectify: true,
-
-
-                style: [{"selector":"core","style":{"selection-box-color":"#AAD8FF","selection-box-border-color":"#8BB0D0","selection-box-opacity":"0.5"}},{"selector":"node","style":{ "width":"mapData(score, 0, 0.006769776522008331, 20, 60)","height":"mapData(score, 0, 0.006769776522008331, 20, 60)","content":"data(content)","font-size":"20px", "text-valign":"center","text-halign":"center","background-color":"#ddd","color":"#000","overlay-padding":"6px","z-index":"10"}},{"selector":"node[?attr]","style":{"shape":"rectangle","background-color":"#aaa","text-outline-color":"#aaa","width":"16px","height":"16px","font-size":"6px","z-index":"1"}},{"selector":"node[?query]","style":{"background-clip":"none","background-fit":"contain"}},{"selector":"node:selected","style":{"border-width":"6px","border-color":"#AAD8FF","border-opacity":"0.5","background-color":"#77828C","text-outline-color":"#77828C"}},{"selector":"edge","style":{"curve-style":"haystack","haystack-radius":"0.5","opacity":"0.4","line-color":"#bbb","width":"mapData(weight, 0, 1, 1, 8)","overlay-padding":"3px"}},{"selector":"node.unhighlighted","style":{"opacity":"0.2"}},{"selector":"edge.unhighlighted","style":{"opacity":"0.05"}},{"selector":".highlighted","style":{"z-index":"999999"}},{"selector":"node.highlighted","style":{"border-width":"6px","border-color":"#AAD8FF","border-opacity":"0.5","background-color":"#394855","text-outline-color":"#394855","shadow-blur":"12px","shadow-color":"#000","shadow-opacity":"0.8","shadow-offset-x":"0px","shadow-offset-y":"4px"}},{"selector":"edge.filtered","style":{"opacity":"0"}},{"selector":"edge[group=\"coexp\"]","style":{"line-color":"#d0b7d5"}},{"selector":"edge[group=\"coloc\"]","style":{"line-color":"#a0b3dc"}},{"selector":"edge[group=\"gi\"]","style":{"line-color":"#90e190"}},{"selector":"edge[group=\"path\"]","style":{"line-color":"#9bd8de"}},{"selector":"edge[group=\"pi\"]","style":{"line-color":"#eaa2a2"}},{"selector":"edge[group=\"predict\"]","style":{"line-color":"#f6c384"}},{"selector":"edge[group=\"spd\"]","style":{"line-color":"#dad4a2"}},{"selector":"edge[group=\"spd_attr\"]","style":{"line-color":"#D0D0D0"}},{"selector":"edge[group=\"reg\"]","style":{"line-color":"#D0D0D0"}},{"selector":"edge[group=\"reg_attr\"]","style":{"line-color":"#D0D0D0"}},{"selector":"edge[group=\"user\"]","style":{"line-color":"#f0ec86"}}],
+                        boxSelectionEnabled: false,
+                        autounselectify: true,
 
 
-                elements: {
-                    nodes: nodes,
-                    edges: edges
-                },
+                        style: [{"selector":"node","style":{ "content":"data(content)","font-size":"20px", "text-valign":"center","text-halign":"center","background-color":"#ddd", "opacity": "0.75", "color":"#000","overlay-padding":"6px","z-index":"10"}}, {"selector": ".highlighted", "style": {"background-color":"#212121", "opacity": "1"} }, {"selector": ".search", "style":{"background-color": "#009688"}}],
 
-                layout: {
-                    name: 'dagre',
-                    directed: true,
-                    roots: '#a',
-                    padding: 10
-                }
+
+                        elements: {
+                            nodes: nodes,
+                            edges: edges
+                        },
+
+                        layout: {
+                            name: 'dagre',
+                            directed: true,
+                            roots: '#a',
+                            padding: 10
+                        }
+                    });
+
+                    solution.forEach(function(e, i){
+                        cy.getElementById(e).addClass("highlighted");
+                    });
+
+                    var i = 0;
+                    var highlightNextEle = function(){
+                        if( i < searchPath.length ){
+                            cy.getElementById(searchPath[i]).addClass('search');
+
+                            i++;
+                            setTimeout(highlightNextEle, 1000);
+                        }
+                    };
+
+        // kick off first highlight
+                    highlightNextEle();
+
+
+                });
             });
-
-
-            var bfs = window.cy.elements().bfs('#a', function(){}, true);
-
-            var i = 0;
-            var highlightNextEle = function(){
-                if( i < bfs.path.length ){
-                    bfs.path[i].addClass('highlighted');
-
-                    i++;
-                    setTimeout(highlightNextEle, 1000);
-                }
-            };
-
-// kick off first highlight
-            highlightNextEle();
-
         });
+
     });
 
 

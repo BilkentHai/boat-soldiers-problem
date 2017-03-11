@@ -13,8 +13,9 @@ public class Solver {
 
     HashMap<State,State> map = new HashMap<State, State>();
     String result = "";
+    String searchPath = "[";
 
-    public State BFS(State start) {
+    public State BFS(State start)  {
         Queue<State> q = new LinkedList<State>();
         List<State> visited = new LinkedList();
         q.add(start);
@@ -22,8 +23,10 @@ public class Solver {
         while(!q.isEmpty() ){
             State curState = (State) q.remove();
             result += ( curState.toString() + "\n");
+            searchPath += "\"" + curState.getid() + "\", ";
             if( isSolution(curState)){
                 visited.add(curState);
+                searchPath += "]";
                 return curState;
             }
             else{
@@ -38,6 +41,7 @@ public class Solver {
             }
             visited.add(curState);
         }
+        searchPath += "]";
         return null;
     }
 
@@ -60,7 +64,7 @@ public class Solver {
         return false;
     }
 
-    public String JSONifySolution(State solution)
+    public String JSONifySolution(State solution, State start)
     {
         String path = "";
         State cur = solution;
@@ -69,7 +73,7 @@ public class Solver {
             State temp = map.get(cur);
             cur = map.get(cur);
         }
-        return path;
+        return "\"" + start.getId() + "\", " + path;
     }
 
     public void printSearch()
@@ -77,6 +81,9 @@ public class Solver {
         System.out.println( result);
     }
 
+    public String getSearchPath() {
+        return searchPath;
+    }
 
     public static void main(String[] args) {
 

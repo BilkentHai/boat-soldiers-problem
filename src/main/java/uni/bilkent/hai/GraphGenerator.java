@@ -15,6 +15,7 @@ public class GraphGenerator {
     String nodes, edges;
     Solver solver;
     String solution;
+    String searchPath;
 
     private List<State> states = new ArrayList<State>();
 
@@ -77,9 +78,12 @@ public class GraphGenerator {
         edges = edges.substring(0, edges.length()-1);
         edges += "]";
         solution = "[";
-        solution += solver.JSONifySolution(solver.BFS( trav.getStateGenerator().getStates().get(0)));
+        solution += solver.JSONifySolution(solver.BFS( trav.getStateGenerator().getStates().get(0)), trav.getStateGenerator().getStates().get(0));
         solution = solution.substring(0,solution.length()-2);
         solution += "]";
+        searchPath = solver.getSearchPath();
+        searchPath = searchPath.substring(0, searchPath.length()-3);
+        searchPath += "]";
         //System.out.println(solution);
         JSONFile();
 
@@ -90,14 +94,22 @@ public class GraphGenerator {
                 File file = new File("web/edges.json");
                 File file2 = new File("web/nodes.json");
                 File file3 = new File("web/solution.json");
+                File file4 = new File("web/search_path.json");
                 file.createNewFile();
+                file2.createNewFile();
                 file3.createNewFile();
+                file4.createNewFile();
                 FileWriter fileWriter = new FileWriter(file);
                 FileWriter fileWriter2 = new FileWriter(file2);
                 FileWriter fileWriter3 = new FileWriter(file3);
+                FileWriter fileWriter4 = new FileWriter(file4);
                 fileWriter3.write(solution);
                 fileWriter3.flush();
                 fileWriter3.close();
+                fileWriter4.write(searchPath);
+                System.out.println(searchPath);
+                fileWriter4.flush();
+                fileWriter4.close();
                 fileWriter.write( edges);
                 fileWriter2.write( nodes);
                 fileWriter.flush();
@@ -107,9 +119,6 @@ public class GraphGenerator {
             } catch ( IOException e){
                 e.printStackTrace();;
             }
-    }
-
-    public static void main(String[] args) {
     }
 
 }
