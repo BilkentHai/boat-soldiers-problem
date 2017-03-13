@@ -13,3 +13,7 @@ The library cytoscape.js is used to visualize the state tree. This library can b
 The state tree in index.html looks like this:
 
 Black dots indicate the path from the initial state to the goal state. Green dots represent the search path.
+![State tree](1.png)
+
+### UML Diagram
+![UML](uml.png)
